@@ -44,3 +44,21 @@ public class UserTest {
 
 
 }
+
+    @Test
+    public void testNewUser() {
+        User user = new User();
+        user.setRegistrationnumber("12345");
+        user.setFirstname("John");
+        user.setLastname("Doe");
+        user.setEmail("john.doe@example.com");
+
+        when(userRepository.save(any(User.class))).thenReturn(user);
+
+        User savedUser = userController.newUser(user);
+
+        assertEquals(user.getRegistrationnumber(), savedUser.getRegistrationnumber());
+        assertEquals(user.getFirstname(), savedUser.getFirstname());
+        assertEquals(user.getLastname(), savedUser.getLastname());
+        assertEquals(user.getEmail(), savedUser.getEmail());
+    }
